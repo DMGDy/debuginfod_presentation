@@ -1,9 +1,11 @@
 \frametitle{Installing debuginfod}
+   \noindent
    There are two ways to install on a Ubuntu machine:
    \begin{itemize}
       \item Upgrade to Ubuntu 22.04
       \item append the impish package to /etc/apt/sources.list
    \end{itemize}
+   \noindent
    \begin{verbatim}
       deb http://archive.ubuntu.com/ubuntu impish main restricted universe multiverse
    \end{verbatim}
