@@ -62,5 +62,26 @@ Yocto Project}
    \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+   \frametitle{Federating debuginfod servers}
+   debuginfod servers can act as a host machine and query other servers
+   %include image
+   %include diagram
+\end{frame}
+
+\begin{frame}
+   \frametitle{Demo}
+\end{frame}
+
+\begin{frame}[fragile]
+   \frametitle{debuginfod with the Yocto Project}
+   For versions after 3.4(honister) only 2 changes are needed for debuginfod
+   to work on a build. Append the following the \verb|local.conf|:
+   \begin{enumerate}
+      \item \verb|PACKAGE_CONFIG_pn-elfutils-native="debuginfod libdebuginfod"|
+      \item \verb|DISTROFEATURES += "debuginfod"|
+   \end{enumerate}
+\end{frame}
+
 
 \end{document}

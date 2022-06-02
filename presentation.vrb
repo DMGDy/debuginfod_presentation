@@ -1,14 +1,7 @@
-\frametitle{Setting up and using debuginfod}
-   Starting the debuginfod server:
-   \begin{itemize}
-      \item To start the file server, simply run \verb|debuginfod -F|.
-         Different arguments will search for different debug artifacts (\verb|-F -R -U|)
-      \item Providing a path to a directory will point debuginfod where to scan for the debug artifacts.
-      \item To set a rescan time, provide \verb|-t [time in seconds]|
-   \end{itemize}
-   On the host machine:
-   \begin{itemize}
-      \item set environment variable \verb|DEBUGINFOD_URLS| to the ip address
-         of the file server, prefixed by \verb|http://| and suffixed by the
-         port number defaulted to \verb|:8002|, which can be changed by \verb|-p [port num]|
-   \end{itemize}
+\frametitle{debuginfod with the Yocto Project}
+   For versions after 3.4(honister) only 2 changes are needed for debuginfod
+   to work on a build. Append the following the \verb|local.conf|:
+   \begin{enumerate}
+      \item \verb|PACKAGE_CONFIG_pn-elfutils-native="debuginfod libdebuginfod"|
+      \item \verb|DISTROFEATURES += "debuginfod"|
+   \end{enumerate}
