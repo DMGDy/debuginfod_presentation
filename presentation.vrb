@@ -6,7 +6,6 @@
       \item Upgrade to Ubuntu 22.04
       \item append the impish package to /etc/apt/sources.list
    \end{itemize}
-   \noindent
    \hspace{-2cm}
    \begin{verbatim}
       deb http://archive.ubuntu.com/ubuntu impish main restricted universe multiverse
