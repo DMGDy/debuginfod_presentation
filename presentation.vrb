@@ -1,5 +1,4 @@
-\vspace{-2cm}
-   \frametitle{Setting up and using debuginfod}
+\frametitle{Setting up and using debuginfod}
    \vspace{-1cm}
    \begin{itemize}
       \item To start the file server, simply run \verb|debuginfod -F|.
