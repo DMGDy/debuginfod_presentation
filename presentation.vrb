@@ -1,5 +1,6 @@
 \frametitle{Setting up and using debuginfod}
    \vspace{-1cm}
+   Starting the debuginfod server:
    \begin{itemize}
       \item To start the file server, simply run \verb|debuginfod -F|.
          Different arguments will search for different debug artifacts (\verb|-F -R -U|)
