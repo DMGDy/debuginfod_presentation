@@ -6,12 +6,29 @@
 \usepackage{commath}
 \onehalfspacing
 \geometry{margin=0.5in}
+\title{debuginfod}
+\subtitle{and its interaction with the 
+Yocto Project}
 \author{Dylan Garza}
-\date
+\date{\today}
 
 \begin{document}
 
 \frame{\titlepage}
+
+\begin{frame}
+\frametitle{What is/Why debuginfod}
+
+debuginfod is a daemon turns a machine that
+holds debug artifacts into file server for
+easier debugging. \\
+
+Debug info is too big to be stored locally
+on the target devices. Different versions 
+of binaries exist, storing and searching 
+for debug artifacts manually is too slow.
+\end{frame}
+
 
 
 
