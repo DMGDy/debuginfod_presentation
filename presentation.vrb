@@ -1,13 +1,15 @@
-\frametitle{Installing debuginfod}
+\frametitle{Setting up and using debuginfod}
    \vspace{-1cm}
-   \noindent
-   There are two ways to install on a Ubuntu machine:
    \begin{itemize}
-      \item Upgrade to Ubuntu 22.04
-      \item append the impish package to /etc/apt/sources.list
+      \item To start the file server, simply run \verb|debuginfod -F|.
+         Different arguments will search for different debug artifacts (\verb|-F -R -U|)
+      \item Providing a path to a directory will point debuginfod where to scan for the debug artifacts.
+      \item To set a rescan time, provide \verb|-t [time in seconds]|
    \end{itemize}
-   \hspace{-2cm}
-   \begin{verbatim}
-deb http://archive.ubuntu.com/ubuntu impish main restricted universe multiverse
-   \end{verbatim}
+   On the host machine:
+   \begin{itemize}
+      \item set environment variable \verb|DEBUGINFOD_URLS| to the ip address
+         of the file server, prefixed by \verb|http://| and suffixed by the
+         port number defaulted to \verb|:8002|, which can be changed by \verb|-p [port num]|
+   \end{itemize}
 
