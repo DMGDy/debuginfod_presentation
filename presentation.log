@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2022.6.1)  2 JUN 2022 18:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2022.6.1)  2 JUN 2022 18:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -993,7 +993,7 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 Here is how much of TeX's memory you used:
  17962 strings out of 479304
  344605 string characters out of 5869780
- 645933 words of memory out of 5000000
+ 644933 words of memory out of 5000000
  34697 multiletter control sequences out of 15000+600000
  407999 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1002,7 +1002,7 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on presentation.pdf (4 pages, 51555 bytes).
+Output written on presentation.pdf (4 pages, 51560 bytes).
 PDF statistics:
  137 PDF objects out of 1000 (max. 8388607)
  119 compressed objects within 2 object streams
