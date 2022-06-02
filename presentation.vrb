@@ -8,6 +8,6 @@
    \end{itemize}
    \hspace{-2cm}
    \begin{verbatim}
-      deb http://archive.ubuntu.com/ubuntu impish main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu impish main restricted universe multiverse
    \end{verbatim}
 
