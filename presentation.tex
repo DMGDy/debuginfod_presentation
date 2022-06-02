@@ -17,18 +17,30 @@ Yocto Project}
 \frame{\titlepage}
 
 \begin{frame}
-\frametitle{What is/Why debuginfod}
-
-debuginfod is a daemon turns a machine that
-holds debug artifacts into file server for
-easier debugging. \\
-\vspace{.5cm}
-Debug info is too big to be stored locally
-on the target devices. Different versions 
-of binaries exist, storing and searching 
-for debug artifacts manually is too slow.
+   \frametitle{debuginfod}
+   \begin{itemize}
+      \item What is debuginfod?
+      debuginfod is a daemon turns a machine that
+      holds debug artifacts into file server for
+      easier debugging. \\
+      \vspace{.5cm}
+      \item Why use it?
+      Debug info is too big to be stored locally
+      on the target devices. Different versions 
+      of binaries exist, storing and searching 
+      for debug artifacts manually is too slow.
+   \end{itemize}
 \end{frame}
 
+\begin{frame}
+   \frametitle{Installing debuginfod}
+   There are two ways to install on a Ubuntu machine:
+   \begin{itemize}
+      \item Upgrade to Ubuntu 22.04
+      \item append the 
+   \end{itemize}
+
+\end{frame}
 
 
 
