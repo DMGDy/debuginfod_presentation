@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.5.21)  3 JUN 2022 14:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.5.21)  3 JUN 2022 17:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -917,7 +917,7 @@ Overfull \vbox (1.7955pt too high) detected at line 82
 File: federated_ss.png Graphic file (type png)
 <use federated_ss.png>
 Package pdftex.def Info: federated_ss.png  used on input line 87.
-(pdftex.def)             Requested size: 342.08775pt x 192.42435pt.
+(pdftex.def)             Requested size: 343.02876pt x 192.95367pt.
  [7
 
  <./federated_ss.png>] [8
