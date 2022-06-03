@@ -1,7 +1,11 @@
-\frametitle{debuginfod with the Yocto Project}
-   For versions after 3.4(honister) only 2 changes are needed for debuginfod
-   to work on a build. Append the following the \verb|local.conf|:
-   \begin{enumerate}
-      \item \verb|PACKAGE_CONFIG_pn-elfutils-native="debuginfod libdebuginfod"|
-      \item \verb|DISTROFEATURES += "debuginfod"|
-   \end{enumerate}
+\frametitle{ debuginfod-find}
+   Command apart of elfutils, it performs debuginfod server querying without gdb. Can query for
+   debuginfo, executables, and sources.
+   \begin{tiny}
+   \begin{verbatim}
+   debuginfod-find [debuginfo/executable/source] [path/to/file or Build-ID] [path/to/source]
+   \end{verbatim}
+   \end{tiny}
+   If the path to the source is not known, but debug info is available, use the \verb|list| command
+   under gdb to provide source path.
+
