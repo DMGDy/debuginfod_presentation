@@ -52,14 +52,13 @@ Yocto Project}
 \end{frame}
 
 \begin{frame}[fragile]
-   \fontsize{8pt}{10pt}{\selectfont}
+   \fontsize{10pt}{10pt}{\selectfont}
    \frametitle{ Setting up and using debuginfod}
    Starting the debuginfod server:
    \begin{itemize}
-      \item To start the file server, simply run \verb|debuginfod -F|. 
+      \item To start the file server, simply run \color{gray}\verb|debuginfod -F|\color{black}. 
          Different arguments will search for different debug artifacts (\verb|-F -R -U|)
          \begin{itemize}
-         \fontsize{8pt}{10pt}{\selectfont}
             \item -F sets file scanning for ELF/DWARF artifacts.
             \item -R sets file scanning for RPMs
             \item -U sets file scanning for .deb
@@ -81,10 +80,10 @@ Yocto Project}
    \frametitle{ Setting up and using debuginfod (cont.)}
    On the developers machine:
    \begin{itemize}
-      \item set environment variable \verb|DEBUGINFOD_URLS| to the ip address 
-         of the file server, prefixed by \verb|http://| and suffixed by the 
-         port number defaulted to \verb|:8002|, 
-         which can be changed by \verb|-p [port num]|
+      \item set environment variable \color{gray}\verb|DEBUGINFOD_URLS|\color{black} to the ip address 
+         of the file server, prefixed by \color{gray} \verb|http://| \color{black}and suffixed by the 
+         port number defaulted to \color{gray} \verb|:8002|\color{black}, 
+         which can be changed by \color{gray}\verb|-p [port num]|\color{black}
    \end{itemize}
    \color{gray}
    \begin{verbatim}
@@ -145,16 +144,34 @@ Yocto Project}
 \end{frame}
 
 \begin{frame}[fragile]
-   \frametitle{ debuginfod with the Yocto Project}
-   For versions after 3.4(honister) only 2 changes are needed for debuginfod
-   to work on a build. Append the following the \verb|local.conf|:
-   \begin{small}
+   \frametitle{debuginfod with the Yocto Project}
+   For versions after 3.4(honister) debuginfod is built into the Yocto Project. Only 2 
+   changes need to be made to \color{gray} \verb|local.conf| \color{black} in order for debuginfod
+   to 
    \begin{enumerate}
-      \item \verb|PACKAGE_CONFIG_pn-elfutils-native="debuginfod libdebuginfod"|
-      \item \verb|DISTROFEATURES += "debuginfod"|
+      \color{gray}
+      \fontsize{10pt}{10pt}\selectfont
+      \item \verb|PACKAGECONFIG_pn-elfutils-native="debuginfod libdebuginfod"|
+         \begin{itemize}
+            \item From the elfutils package that is for the target device, enable the recipe feature of
+               debuginfod and libdebuginfod.
+         \end{itemize}
+      \item \verb|DISTROF_EATURES += "debuginfod"|
    \end{enumerate}
-   \end{small}
-   Yocto Project has built in script for debuginfod to eliminate compatability issues. 
+\end{frame}
+
+\begin{frame}[fragile]
+   \frametitle{debuginfod with the Yocto Project (cont.)}
+   \begin{itemize}
+      \item Yocto has a built-in wrapper script around debuginfod that ensures the same versions are used so
+        that the target device is able to query the server properly.
+      \item Source paths is the concatination of \color{gray} \verb|usr/src/debug/..| \color{black} (which is
+         set by standard) and the binary's \color{gray} \verb|$WORKDIR/[package]|\color{black} or simply
+         \color{gray} \verb|$PKGD|
+         \color{black}
+      \item An easy way to find the source path is to use gdb to retrieve the binary with debug symbols. 
+         Then run the \color{gray}\verb|list| \color{black} in gdb in which the source path will be displayed.
+   \end{itemize}
 \end{frame}
 
 

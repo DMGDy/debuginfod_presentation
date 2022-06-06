@@ -1,10 +1,11 @@
-\frametitle{ debuginfod with the Yocto Project}
-   For versions after 3.4(honister) only 2 changes are needed for debuginfod
-   to work on a build. Append the following the \verb|local.conf|:
-   \begin{small}
-   \begin{enumerate}
-      \item \verb|PACKAGE_CONFIG_pn-elfutils-native="debuginfod libdebuginfod"|
-      \item \verb|DISTROFEATURES += "debuginfod"|
-   \end{enumerate}
-   \end{small}
-   Yocto Project has built in script for debuginfod to eliminate compatability issues.
+\frametitle{debuginfod with the Yocto Project (cont.)}
+   \begin{itemize}
+      \item Yocto has a built-in wrapper script around debuginfod that ensures the same versions are used so
+        that the target device is able to query the server properly.
+      \item Source paths is the concatination of \color{gray} \verb|usr/src/debug/..| \color{black} (which is
+         set by standard) and the binary's \color{gray} \verb|$WORKDIR/[package]|\color{black} or simply
+         \color{gray} \verb|$PKGD|
+         \color{black}
+      \item An easy way to find the source path is to use gdb to retrieve the binary with debug symbols.
+         Then run the \color{gray}\verb|list| \color{black} in gdb in which the source path will be displayed.
+   \end{itemize}
