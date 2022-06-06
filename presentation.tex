@@ -6,7 +6,7 @@
 \usepackage{setspace}
 \usepackage{commath}
 \usepackage{graphicx}
-\geometry{margin=0.0in}
+\geometry{margin=0.125in}
 \title{debuginfod}
 \subtitle{and its interaction with the 
 Yocto Project}
@@ -23,13 +23,14 @@ Yocto Project}
       \item What is debuginfod?
       debuginfod is a daemon turns a machine that
       holds debug artifacts into file server for
-      easier debugging. \\
+      easier debugging. Tools such as gdb, valgrind, and systemtap utilize 
+         debuginfod. \\
       \vspace{.5cm}
       \item Why use it?
       Debug info is too big to be stored locally
       on the target devices. Different versions 
-      of binaries exist, storing and searching 
-      for debug artifacts manually is too slow.
+      of binaries exist, so corresponding debug info is fethced automatically 
+      with gdb. 
    \end{itemize}
 \end{frame}
 
@@ -40,54 +41,107 @@ Yocto Project}
    There are two ways to install on a Ubuntu machine:
    \begin{itemize}
       \item Upgrade to Ubuntu 22.04
-      \item append the impish package to \verb|/etc/apt/sources.list|
+      \item append the "impish" package to \color{gray}\verb|/etc/apt/sources.list|
+         \color{black} by appending the following line:
    \end{itemize}
-   %add image here of line appended
+   \color{gray}
+   \fontsize{8pt}{10pt}{\selectfont}
+   \begin{verbatim}
+   deb http://archive.ubuntu.com/ubuntu impish main restricted universe multiverse
+   \end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
-   \frametitle{Setting up and using debuginfod}
-   \vspace{-1cm}
+   \fontsize{8pt}{10pt}{\selectfont}
+   \frametitle{ Setting up and using debuginfod}
    Starting the debuginfod server:
    \begin{itemize}
       \item To start the file server, simply run \verb|debuginfod -F|. 
          Different arguments will search for different debug artifacts (\verb|-F -R -U|)
+         \begin{itemize}
+         \fontsize{8pt}{10pt}{\selectfont}
+            \item -F sets file scanning for ELF/DWARF artifacts.
+            \item -R sets file scanning for RPMs
+            \item -U sets file scanning for .deb
+         \end{itemize}
       \item Providing a path to a directory will point debuginfod where to scan for the debug artifacts.
-      \item To set a rescan time, provide \verb|-t [time in seconds]|
+      \item debuginfod must initially scan the pointed directory for debug artifacts. 
+         A rescan is done every 5 minutes but this can be changed with the
+         \color{gray}\verb|-t| \color{black} option
    \end{itemize}
+   \vspace{-.5cm}
+   \color{gray}
+   \begin{verbatim}
+   debuginfod -t 30 -F /home/dylan/debug_info
+   \end{verbatim}
 \end{frame}
 
 \begin{frame}[fragile]
+   \fontsize{10pt}{10pt}\selectfont
    \frametitle{ Setting up and using debuginfod (cont.)}
-   \vspace{-1cm}
-   On the host machine:
+   On the developers machine:
    \begin{itemize}
       \item set environment variable \verb|DEBUGINFOD_URLS| to the ip address 
          of the file server, prefixed by \verb|http://| and suffixed by the 
-         port number defaulted to \verb|:8002|, which can be changed by \verb|-p [port num]|
+         port number defaulted to \verb|:8002|, 
+         which can be changed by \verb|-p [port num]|
    \end{itemize}
+   \color{gray}
    \begin{verbatim}
     export DEBUGINFOD_URLS="http://ip_addr:8002"
     \end{verbatim}
+    \begin{itemize}
+       \item gdb will now query the given debuginfod server for the debug info 
+          via Build-ID and download it to the machines \color{gray}
+          \verb|~/.cache/debuginfod_client/| \color{black}
+          directory, where it will be sorted by Build-ID
+    \end{itemize}
+    
 
 
 \end{frame}
 
 \begin{frame}[fragile]
    \frametitle{ Federating debuginfod servers}
-   debuginfod servers can act as a host machine and query other servers
+   \fontsize{10pt}{10pt}\selectfont
+   Adding multiple URLs to the environement variable can become cumbersome. Federating
+   debuginfod servers can simplify the proccess by having one debuginfod server query 
+   other servers if it does not contain the requested artifacts.
+   \includegraphics[scale=.375]{federeated_servers.png}
    %include image
-   \includegraphics[scale=0.45]{federeated_servers.png}
    %include diagram
 \end{frame}
 
 \begin{frame}
    \frametitle{ Federeating debuginfod servers (cont.) }
-   \includegraphics[scale=.178]{federated_ss.png}
+   \begin{center}
+   \includegraphics[scale=.175]{federated_ss.png}
+   \end{center}
 \end{frame}
+\begin{frame}[fragile]
+   \frametitle{ debuginfod-find}
+   \begin{itemize}
+      \item The \color{gray}\verb|debuginfod-find| \color{black}command allows the retrieval of debug artifacts, binary 
+   executables, or sources without the use of gdb. The command simply calls for the type of file to 
+   query and retrieve and the path to the binary or Build-ID. Additionally if a source is requested
+   the path to the source also must be provided.
+   \end{itemize}
+   \fontsize{7pt}{10pt}\selectfont
+   \color{gray}
+   \begin{verbatim}
+   debuginfod-find [debuginfo/executable/source] [path/to/file or Build-ID] [path/to/source]
+   \end{verbatim}
+   \fontsize{10pt}{10pt}\selectfont
+   \begin{itemize}
+      \item The requested file will be stored in the same directory as a normal successful 
+         debuginfod query.
+      \item Source files will be named by their path, with "\#\#" in place of "\//".
+   \end{itemize}
+   \color{gray}
+   \begin{verbatim}
+   ~/.cache/debuginfod_client/[Build-ID]/path##to##source.c
+   \end{verbatim}
 
-\begin{frame}
-   \frametitle{ Demo}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -103,22 +157,15 @@ Yocto Project}
    Yocto Project has built in script for debuginfod to eliminate compatability issues. 
 \end{frame}
 
-\begin{frame}[fragile]
-   \frametitle{ debuginfod-find}
-   Command apart of elfutils, it performs debuginfod server querying without gdb. Can query for
-   debuginfo, executables, and sources. 
-   \begin{tiny}
-   \begin{verbatim}
-   debuginfod-find [debuginfo/executable/source] [path/to/file or Build-ID] [path/to/source]
-   \end{verbatim}
-   \end{tiny}
-   If the path to the source is not known, but debug info is available, use the \verb|list| command
-   under gdb to provide source path. 
 
+
+
+\begin{frame}
+   \frametitle{ Demo}
 \end{frame}
 
 \begin{frame}
-   \frametitle{ Demo }
+   \frametitle{ Demo}
 \end{frame}
 
 
