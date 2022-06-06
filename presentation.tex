@@ -65,7 +65,7 @@ Yocto Project}
          \end{itemize}
       \item Providing a path to a directory will point debuginfod where to scan for the debug artifacts.
       \item debuginfod must initially scan the pointed directory for debug artifacts. 
-         A rescan is done every 5 minutes but this can be changed with the
+         A rescan is done every 300 seconds but this can be changed with the
          \color{gray}\verb|-t| \color{black} option
    \end{itemize}
    \vspace{-.5cm}
@@ -156,7 +156,7 @@ Yocto Project}
             \item From the elfutils package that is for the target device, enable the recipe feature of
                debuginfod and libdebuginfod.
          \end{itemize}
-      \item \verb|DISTROF_EATURES += "debuginfod"|
+      \item \verb|DISTRO_FEATURES += "debuginfod"|
    \end{enumerate}
 \end{frame}
 
